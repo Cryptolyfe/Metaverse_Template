@@ -1,96 +1,138 @@
-# Metaverse Template
+# Metaverse Tokenization Template
 
-A starting point for building your own metaverse experiences, this template provides a foundational structure and essential components to kickstart development. Whether you’re creating a social VR world, an interactive AR environment, or a fully immersive 3D space, this template streamlines the initial setup so you can focus on customizing the experience.
+This repository provides a starting point for tokenizing aspects of a metaverse or game environment on the Ethereum blockchain (or compatible EVM chains). The template includes a Solidity smart contract designed to streamline the creation and management of in-world tokens—be they fungible utility tokens or NFTs representing unique items, virtual land, avatars, or other valuable digital assets.
 
 ## Features
 
-- **Basic Scene Setup**: A pre-configured Unity scene with lighting, skybox, and environment elements.
-- **Character Controller**: Simple character movement and camera controls to navigate the environment.
-- **UI Elements**: Basic UI templates for menus, HUD elements, or in-world interfaces.
-- **Extensible Scripts**: Modular C# scripts that can be easily extended or replaced to fit your project’s needs.
-- **Project Structure**: A clear folder hierarchy to keep assets, scripts, and settings organized.
+- **Modular Smart Contract Design**:  
+  A Solidity contract that can be easily extended or integrated into your larger DApp ecosystem.
+  
+- **Fungible & Non-Fungible Token Support**:  
+  The included contract demonstrates how to issue ERC-20 compatible tokens for in-metaverse currencies, and can be extended to handle ERC-721 or ERC-1155 tokens for assets like items, parcels of land, or other unique objects.
+  
+- **Upgradeable Structure**:  
+  The contract is structured to allow modifications and extensions without starting from scratch, making it easier to iterate as your metaverse evolves.
+  
+- **Gas Efficiency Considerations**:  
+  Basic design patterns and techniques are included or suggested to help keep transaction costs manageable.
 
 ## Getting Started
 
 ### Prerequisites
 
-- **Unity**: This project was built using [Unity 2021.3 LTS](https://unity.com/releases/editor/whats-new/2021-lts) (or higher). Make sure you have the appropriate Unity version installed.
-- **Version Control (Optional)**: Using Git or another VCS is recommended for team collaboration and version management.
+- **Node.js & npm/yarn**: Ensure you have [Node.js](https://nodejs.org) and a package manager such as `npm` or `yarn` installed.
+- **Hardhat or Truffle**: A development framework for compiling, testing, and deploying the smart contracts. This template assumes you’re using [Hardhat](https://hardhat.org/) but you can adapt it to Truffle or Foundry.
+- **Ethereum Client or Test Network**:  
+  - For development and testing, use a local test network (e.g., Hardhat Network).
+  - For staging and production, connect to testnets like Goerli or Polygon Mumbai, or mainnets like Ethereum or Polygon.
 
 ### Installation
 
 1. **Clone the Repository**:
    ```bash
    git clone https://github.com/Cryptolyfe/Metaverse_Template.git
+   cd Metaverse_Template
+   ```
+
+2. **Install Dependencies**:
+   ```bash
+   npm install
    ```
    
-2. **Open in Unity**:
-   - Launch Unity Hub.
-   - Click on **"Open"**.
-   - Select the cloned `Metaverse_Template` folder.
-   - Once opened, Unity will import the assets and you will be ready to explore the project.
+   or
+   
+   ```bash
+   yarn install
+   ```
 
 ### Project Structure
 
 ```
 Metaverse_Template/
-├─ Assets/
-│  ├─ Materials/
-│  ├─ Prefabs/
-│  ├─ Scenes/
-│  │  └─ SampleScene.unity
-│  ├─ Scripts/
-│  └─ UI/
-├─ Packages/
-├─ ProjectSettings/
-└─ README.md
+├─ contracts/
+│  └─ MetaverseTemplate.sol  // Example template contract
+├─ scripts/
+│  └─ deploy.js              // Example deployment script
+├─ test/
+│  └─ MetaverseTemplate.test.js // Basic test suite
+├─ hardhat.config.js
+└─ package.json
 ```
 
-- **Assets/**: Contains all game assets including models, textures, materials, scripts, and UI.
-- **Scenes/**: Contains the main scene (`SampleScene.unity`), which you can duplicate or rename as needed.
-- **Scripts/**: Core scripts for character control, camera movement, and UI interactions.
-- **UI/**: Basic UI assets and prefabs for menus and heads-up displays.
+- **contracts/**: Contains Solidity source files. `MetaverseTemplate.sol` is where your token logic resides.
+- **scripts/**: Deployment and interaction scripts. Customize `deploy.js` to fit your requirements.
+- **test/**: Unit tests to ensure the contract behaves as expected. Use `npm run test` or `yarn test` after configuration.
 
-## Customization Guide
+## Usage
 
-1. **Adding 3D Models & Assets**:  
-   Drop your 3D models, textures, and sounds into the `Assets/` directory. Consider organizing them into subfolders for better maintainability.
+### Compilation
 
-2. **Updating the Character Controller**:  
-   The default character controller script can be found in `Assets/Scripts/`. Modify it or replace it entirely to support your desired movement mechanics (e.g., VR hand-tracking, flying, or teleportation).
+To compile the contracts, run:
 
-3. **Enhancing the UI**:  
-   Adjust the UI prefabs in `Assets/UI/` to change menus, HUDs, or tooltips. Integrate UI frameworks or third-party plugins as needed.
+```bash
+npx hardhat compile
+```
 
-4. **Networking & Multiplayer**:  
-   This template does not include networking out-of-the-box. However, you can integrate a networking solution (e.g., Photon, Mirror, or Unity’s Netcode) by adding the necessary packages and hooking into the character and world logic.
+### Testing
+
+Run the included tests to verify the contract’s functionality:
+
+```bash
+npx hardhat test
+```
+
+You can write additional tests in `test/` to cover new features or modifications.
+
+### Deployment
+
+Update `scripts/deploy.js` with the desired constructor parameters and run:
+
+```bash
+npx hardhat run scripts/deploy.js --network <network_name>
+```
+
+Replace `<network_name>` with a local or remote network specified in `hardhat.config.js`.
+
+**Example** (local Hardhat network):
+
+```bash
+npx hardhat run scripts/deploy.js --network localhost
+```
+
+## Customization
+
+1. **Fungible Token Logic (ERC-20)**:  
+   Adjust initial supply, token name, and symbol as needed. Add custom business logic such as transaction fees, staking, or governance hooks.
+
+2. **Non-Fungible or Semi-Fungible Tokens (ERC-721/1155)**:  
+   Extend the contract to manage unique assets or collections. This might include minting functions for avatars, land parcels, or special in-game items.
+
+3. **Access Control & Permissions**:  
+   Integrate role-based access control (e.g., using `Ownable` or `AccessControl`) to restrict certain actions (like minting or burning) to specific addresses or contracts.
+
+4. **Integration with Other Contracts**:  
+   Connect this template with game logic contracts, marketplace contracts, or reward distribution mechanisms to build a complete metaverse ecosystem.
 
 ## Roadmap
 
-- **Future Integrations**:  
-  - Add VR support and input mapping for popular headsets.
-  - Integrate basic networking for shared multiplayer experiences.
-  - Provide sample inventory, commerce, or social interaction scripts.
-
-- **Enhanced Environments**:  
-  - Include more sophisticated lighting setups.
-  - Add environmental storytelling elements like interactive objects or NPCs.
+- **Add More Templates**:  
+  Include additional reference contracts for ERC-721 and ERC-1155 tokens.
+  
+- **Advanced Features**:  
+  - Implement upgradeable proxies (e.g., OpenZeppelin Upgradeable Contracts) for seamless feature rollouts.
+  - Add oracles and price feeds for dynamic pricing and scarcity mechanics.
+  
+- **Scaling Solutions**:  
+  Integrate layer-2 solutions for faster, cheaper transactions suitable for frequent in-metaverse interactions.
 
 ## Contributing
 
-Contributions are welcome! If you have suggestions for improvements or spot any issues, feel free to open an issue or create a pull request.
-
-1. **Fork the Repo**  
-2. **Create a New Branch** (`git checkout -b feature/new-component`)
-3. **Commit Your Changes** (`git commit -m 'Add new feature'`)
-4. **Push to the Branch** (`git push origin feature/new-component`)
-5. **Open a Pull Request**
+We appreciate bug reports, feature requests, and code contributions that help improve the template.
 
 ## License
 
-This project is licensed under the [MIT License](LICENSE). You are free to use, modify, and distribute the code, but please attribute it back to the original source if possible.
+This project is available under the [MIT License](LICENSE).
 
 ---
 
-With this template, you should have a solid head start on building your own metaverse experience. Feel free to modify the project structure and components to meet the specific needs of your project. Happy building!
-
+This template aims to give you a head start in structuring and deploying your own metaverse token ecosystem. Adapt, modify, and extend it to suit the unique needs of your game or virtual world. Enjoy building!
