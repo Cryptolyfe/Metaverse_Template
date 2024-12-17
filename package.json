@@ -1,0 +1,18 @@
+{
+  "name": "metaverse_template",
+  "version": "1.0.0",
+  "description": "This repository provides a starting point for tokenizing aspects of a metaverse or game environment on the Ethereum blockchain (or compatible EVM chains). The template includes a Solidity smart contract designed to streamline the creation and management of in-world tokens—be they fungible utility tokens or NFTs representing unique items, virtual land, avatars, or other valuable digital assets.",
+  "main": "2_deploy_land.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^5.0.0",
+    "@openzeppelin/contracts": "^4.9.3",
+    "dotenv": "^16.4.7",
+    "hardhat": "^2.22.17"
+  }
+}
